@@ -1,19 +1,19 @@
-/* eslint-disable no-undef */
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+// window.bears = {}
+// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+//   window.bears[request.url] = request.count
+// })
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ color: '#3aa757' }, () => {
-    console.log('The color is green.');
-  });
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, () => {
-    chrome.declarativeContent.onPageChanged.addRules([{
-      conditions: [new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: { hostEquals: 'developer.chrome.com' },
-      }),
-      ],
-      actions: [new chrome.declarativeContent.ShowPageAction()],
-    }]);
-  });
-});
+chrome.browserAction.onClicked.addListener(buttonClicked);
+
+function buttonClicked(tab) {
+  // console.log('button clicks')
+  const puppy = document.getElementById('puppy');
+  console.log(puppy);
+  // puppyButton.addEventListener('click', (e) => {
+
+  // });
+  let msg = {
+    txt: 'hello',
+  };
+  chrome.tabs.sendMessage(tab.id, msg);
+}
